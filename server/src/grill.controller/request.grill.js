@@ -1,7 +1,7 @@
 const Grill = require("../../Models/grill.model");
 const User = require("../user.models/User.model");
 
-// make and accept request
+// make and accept request//
 module.exports = {
   async request(req, res) {
     const { id } = req.params;
