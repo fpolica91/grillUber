@@ -18,13 +18,11 @@ module.exports = {
 
     const arr = addOns ? addOns.split(",").map(item => item.trim()) : null;
 
-    const adds = {
-      type: arr
-    };
-
     const requested = {
       user,
-      addOns: adds
+      addOns: {
+        type: arr
+      }
     };
 
     grill.requested.push(requested);
@@ -37,8 +35,9 @@ module.exports = {
     const user = await User.findById(userId);
     if (!grill) return res.json({ message: "Unable to find grill" });
     if (!user) return res.json({ message: "cannot verify user" });
-    grill.requested.splice(user._id, 1);
-    grill.accepted = user._id;
+    const accpt = grill.requested.findIndex(item => item.user.equals(userId));
+    const accepted = grill.requested.splice(accpt, 1);
+    grill.accepted = accepted;
     await grill.save();
     res.json({ message: "Request Accepted" });
   }

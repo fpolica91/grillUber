@@ -22,7 +22,12 @@ const GrillSchema = new mongoose.Schema({
       addOns: AddOnSchema
     }
   ],
-  accepted: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+  accepted: [
+    {
+      user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+      addOns: AddOnSchema
+    }
+  ]
 });
 
 module.exports = mongoose.model("Grill", GrillSchema);
